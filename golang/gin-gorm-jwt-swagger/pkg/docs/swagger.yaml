@@ -1,0 +1,267 @@
+basePath: /api/v1
+definitions:
+  errors.HTTP:
+    properties:
+      code:
+        type: integer
+      error:
+        type: string
+    type: object
+  models.Auth:
+    properties:
+      email:
+        type: string
+      password:
+        minLength: 8
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    type: object
+  models.Token:
+    properties:
+      id:
+        type: integer
+      token:
+        type: string
+    type: object
+  models.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      password:
+        minLength: 8
+        type: string
+      username:
+        type: string
+    required:
+    - email
+    - password
+    - username
+    type: object
+externalDocs:
+  description: OpenAPI Documentation
+  url: https://swagger.io/resources/open-api/
+host: localhost:9999
+info:
+  contact:
+    email: support@rhuanpk.com
+    name: Rhuan Patriky
+    url: https://linktr.ee/rhuanpk
+  description: This is a sample backend API.
+  license:
+    name: GPL 3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
+  termsOfService: http://swagger.io/terms/
+  title: Backend API
+  version: "1.0"
+paths:
+  /auth:
+    get:
+      description: Get user ID inside the token (JWT).
+      parameters:
+      - description: Bearer token.
+        in: header
+        name: Token
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.HTTP'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.HTTP'
+      summary: ID
+      tags:
+      - auth
+    post:
+      consumes:
+      - application/json
+      description: Log-in and get a authentication token (JWT).
+      parameters:
+      - description: Json request.
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.Auth'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Token'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/errors.HTTP'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.HTTP'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/errors.HTTP'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.HTTP'
+      summary: LOGIN
+      tags:
+      - auth
+  /user:
+    get:
+      description: List all users in table.
+      parameters:
+      - description: Bearer token.
+        in: header
+        name: Token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.HTTP'
+      summary: LIST
+      tags:
+      - user
+    post:
+      consumes:
+      - application/json
+      description: Create a new user in database.
+      parameters:
+      - description: Bearer token.
+        in: header
+        name: Token
+        required: true
+        type: string
+      - description: Json request.
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.User'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/errors.HTTP'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/errors.HTTP'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.HTTP'
+      summary: CREATE
+      tags:
+      - user
+  /user/:id:
+    get:
+      description: Get a single user from ID.
+      parameters:
+      - description: Bearer token.
+        in: header
+        name: Token
+        required: true
+        type: string
+      - description: User ID.
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.HTTP'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/errors.HTTP'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.HTTP'
+      summary: GET
+      tags:
+      - user
+    patch:
+      consumes:
+      - application/json
+      description: |-
+        Update already existing user in database.
+        OBS: send all fields in JSON request (blank fields for "null" values).
+      parameters:
+      - description: Bearer token.
+        in: header
+        name: Token
+        required: true
+        type: string
+      - description: Json request.
+        in: body
+        name: JSON
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      - description: User ID.
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/errors.HTTP'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/errors.HTTP'
+      summary: UPDATE
+      tags:
+      - user
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"
