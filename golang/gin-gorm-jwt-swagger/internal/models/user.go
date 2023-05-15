@@ -1,14 +1,20 @@
 package models
 
-import "golang.org/x/crypto/bcrypt"
+import (
+	"time"
+
+	"golang.org/x/crypto/bcrypt"
+)
 
 // User is the struct to manipulate user operations.
 type User struct {
-	ID       *uint   `json:"id,omitempty" binding:"excluded_with_all" gorm:"primarykey"`
-	Name     string  `json:"name,omitempty" gorm:"default:unnamed"`
-	Username *string `json:"username,omitempty" binding:"required" gorm:"unique;not null"`
-	Email    *string `json:"email,omitempty" binding:"required,email" gorm:"unique;not null"`
-	Password *string `json:"password,omitempty" binding:"required,min=8" gorm:"not null"`
+	ID        *uint     `json:"id,omitempty" binding:"excluded_with_all" gorm:"primarykey"`
+	Name      string    `json:"name,omitempty" gorm:"default:unnamed"`
+	Username  *string   `json:"username,omitempty" binding:"required" gorm:"unique;not null"`
+	Email     *string   `json:"email,omitempty" binding:"required,email" gorm:"unique;not null"`
+	Password  *string   `json:"password,omitempty" binding:"required,min=8" gorm:"not null"`
+	CreatedAt time.Time `binding:"excluded_with_all"`
+	UpdatedAt time.Time `binding:"excluded_with_all"`
 }
 
 // HashPassword hash the password of entity.

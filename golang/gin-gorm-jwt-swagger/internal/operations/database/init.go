@@ -22,7 +22,7 @@ var (
 func init() {
 
 	stringConnection := fmt.Sprintf(
-		"%s:%s@%s(%s:%d)/%s",
+		"%s:%s@%s(%s:%d)/%s?parseTime=true",
 		consts.DBUSER,
 		consts.DBPASSWORD,
 		consts.DBPROTOCOL,
