@@ -301,6 +301,12 @@
                             "type": "string"
                         }
                     },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/errors.HTTP"
+                        }
+                    },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
@@ -366,6 +372,9 @@
                 "username"
             ],
             "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
                 "email": {
                     "type": "string"
                 },
@@ -378,6 +387,9 @@
                 "password": {
                     "type": "string",
                     "minLength": 8
+                },
+                "updatedAt": {
+                    "type": "string"
                 },
                 "username": {
                     "type": "string"
