@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"backend/internal/consts"
+	"backend/internal/infra/database"
 	"backend/internal/models"
-	"backend/internal/operations/database"
 	errorsutils "backend/pkg/utils/errors"
 
 	"github.com/gin-gonic/gin"

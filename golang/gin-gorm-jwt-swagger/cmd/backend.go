@@ -6,10 +6,10 @@ import (
 
 	// Project imports.
 	"backend/internal/consts"
-	"backend/internal/operations/api"
+	"backend/internal/infra/api"
 
 	// Load imports.
-	_ "backend/internal/process/init"
+	_ "backend/internal/process"
 )
 
 // Swagger:

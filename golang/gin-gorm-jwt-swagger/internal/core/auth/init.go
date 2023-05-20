@@ -1,6 +1,6 @@
 package auth
 
-import "backend/internal/operations/api"
+import "backend/internal/infra/api"
 
 func init() {
 	auth := api.V1.Group("/auth/")

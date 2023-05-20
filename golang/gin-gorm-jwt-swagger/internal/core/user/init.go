@@ -1,7 +1,7 @@
 package user
 
 import (
-	"backend/internal/operations/api"
+	"backend/internal/infra/api"
 	"backend/pkg/middlewares"
 )
 

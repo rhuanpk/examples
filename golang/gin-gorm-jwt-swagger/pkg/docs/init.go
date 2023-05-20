@@ -1,7 +1,7 @@
 package docs
 
 import (
-	"backend/internal/operations/api"
+	"backend/internal/infra/api"
 
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"

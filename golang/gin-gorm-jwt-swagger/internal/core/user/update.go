@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"backend/internal/infra/database"
 	"backend/internal/models"
-	"backend/internal/operations/database"
 	"backend/pkg/utils/errors"
 
 	"github.com/gin-gonic/gin"
